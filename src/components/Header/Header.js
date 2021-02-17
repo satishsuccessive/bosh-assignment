@@ -22,13 +22,13 @@ export default function Header() {
 
     return (
         <Box display="flex" width="100%" justifyContent="space-between">
-            <Typography style={{ padding: 10}}>
+            <Typography style={{ padding: 10 }}>
                 <Link to={'/'} onClick={preventDefault}>
                     <img src={bosch} alt="My logo" width="150px" />
                 </Link>
             </Typography>
             <Typography style={{ padding: 15 }}>
-                User Name
+                John Doe
             </Typography>
         </Box>
     );

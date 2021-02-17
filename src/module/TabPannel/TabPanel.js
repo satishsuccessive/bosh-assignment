@@ -6,11 +6,17 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUsersList } from '../../redux/api';
 import { getUserList, getUserById } from '../../redux/selectors';
 import UserDetails from '../UserDetails/UserDetails';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,25 +88,31 @@ function SimpleTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <table>
-          <tr>
-            <th></th>
-            <th width="150px" align="left">First Name</th>
-            <th>Last Name</th>
-            <th>Email</th>
-          </tr>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+          <TableRow>
+            <TableCell></TableCell>
+            <TableCell component="th" width="150px" align="left">First Name</TableCell>
+            <TableCell component="th">Last Name</TableCell>
+            <TableCell component="th">Email</TableCell>
+          </TableRow>
+          </TableHead>
           {newUsers.length > 0 && newUsers.map((user, index) => {
             return (
-              <tr onClick={(e) => viewUserClick(e, user.id)} style={{ cursor: 'pointer' }}>
-                <td><img src={user.avatar} alt={user.first_name} style={{ width: '70px', borderRadius: '50%' }} /></td>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{user.email}</td>
-              </tr>
+              <TableBody>
+              <TableRow onClick={(e) => viewUserClick(e, user.id)} style={{ cursor: 'pointer' }}>
+                <TableCell><img src={user.avatar} alt={user.first_name} style={{ width: '70px', borderRadius: '50%' }} /></TableCell>
+                <TableCell>{user.first_name}</TableCell>
+                <TableCell>{user.last_name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+              </TableRow>
+              </TableBody>
             )
           })
           }
-        </table>
+        </Table>
+        </TableContainer>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <UserDetails data={userData} />
