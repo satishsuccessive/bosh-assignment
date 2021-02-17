@@ -1,35 +1,16 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import Layout from '../layout';
 
 
-const useStyles = makeStyles((theme) => ({
-
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-}));
-
-export default function Body() {
-  const classes = useStyles();
-  const theme = useTheme();
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
 
 
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
+export default function sales() {
+   
+    return (
+        <Layout>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
           ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
@@ -53,7 +34,7 @@ export default function Body() {
           nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
-      </main>
-    </div>
-  );
+        
+        </Layout>
+    );
 }

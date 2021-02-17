@@ -17,9 +17,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import HomeIcon from '@material-ui/icons/Home';
-import Body from '../Body';
 import Header from '../Header';
+import {
+    Link
+  } from "react-router-dom";
 const drawerWidth = 240;
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -142,8 +145,10 @@ export default function Navigation() {
         <List>
           {['Home', 'Sales', 'Employees', 'Customer'].map((text, index) => (
             <ListItem button key={text}>
+                <Link to={text}>
               <ListItemIcon><HomeIcon/></ListItemIcon>
               <ListItemText primary={text} />
+              </Link>
             </ListItem>
           ))}
         </List>
@@ -157,7 +162,6 @@ export default function Navigation() {
           ))}
         </List>
       </Drawer>
-      <Body />
     </div>
   );
 }

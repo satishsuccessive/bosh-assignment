@@ -2,11 +2,11 @@ import React, { lazy, Suspense, useContext } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { createBrowserHistory } from "history";
-import {Main} from "./components";
-
+import Home from "./components/Home";
+import Sales from "./components/sales";
 const history = createBrowserHistory();
 
-const Home = lazy(() => import("./module/TabPannel/TabPanel"));
+// const Home = lazy(() => import("./module/TabPannel/TabPanel"));
 
 function Routes(props) {
   const { location = {} } = props;
@@ -14,10 +14,10 @@ function Routes(props) {
     <Router>
         <Suspense fallback={<>Loading...</>}>
           <Switch>
-            <Route exact path="/">
-              <Main />
-              <Home history={history} />
-            </Route>
+            <Route exact path="/" component={Home} />
+             
+            <Route exact path="/sales" component={Sales} />
+             
             {/* <Route exact path="/add-notes">
               <Notes history={history} />
             </Route> */}

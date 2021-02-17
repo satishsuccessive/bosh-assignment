@@ -6,9 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Body from '../Body';
-import Header from '../Header';
-import Navigation from '../Navigation';
+import {Navigation} from '../components';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -73,13 +71,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Main() {
+export default function Layout(props) {
   const classes = useStyles();
+  const {children}= props;
+  const theme = useTheme();
   return (
     <div className={classes.root}>
-      <CssBaseline />
       <Navigation />
-      <Body />
+      <div className={classes.root}>
+      <CssBaseline />
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        {children}
+      </main>
+    </div>
+     
     </div>
   );
 }
