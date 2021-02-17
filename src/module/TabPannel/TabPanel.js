@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -7,6 +7,9 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { getUsersList } from '../../redux/api';
+import { getUserList, getUserById } from '../../redux/selectors';
 import UserDetails from '../UserDetails/UserDetails';
 
 function TabPanel(props) {
@@ -51,45 +54,24 @@ const useStyles = makeStyles((theme) => ({
 
 function SimpleTabs() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  const [users, getUsers] = useState('');
-  const [userData, setUserData] = useState('');
-
-  const url = 'https://reqres.in/api/users';
+  const dispatch = useDispatch();
+  const [value, setValue] = useState(0);
+  const [id, setUserId] = useState('');
+  const newUsers = useSelector(getUserList);
   useEffect(() => {
-    getAllusers();
-  },[]);
-  const getAllusers = () => {
-            axios.get(url)
-            .then((response) => {
-                const allUsers = response.data.data;
-                console.log(response.data.data, '>>>response');
-                getUsers(allUsers);
-            })
-            .catch(error => console.log(`Error: ${error}`));
-  }
-
-  const collectUserDetails = (id) => {
-    axios.get(`${url}/${id}`)
-    .then((response) => {
-        const allDetails = response.data.data;
-        console.log(response.data.data, '>>> details response');
-        setUserData(allDetails);
-        console.log(userData,'userDatauserData');
-    })
-    .catch(error => console.log(`Error: ${error}`));
-}
+    dispatch(getUsersList());
+  }, []);
 
   const handleChange = (event, newValue) => {
-      console.log(newValue, 'new v');
     setValue(newValue);
   };
 
   const viewUserClick = useCallback(async (e, id) => {
-      setValue(1);
-      collectUserDetails(id);
+    setValue(1);
+    setUserId(id);
+  }, []);
 
-  },[])
+  const userData = useSelector(getUserById(id)) || {};
 
   return (
     <div className={classes.root}>
@@ -100,25 +82,25 @@ function SimpleTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-      <table>
-                <tr>
-                <th></th>
-                <th width="150px" align="left">First Name</th>
-                <th>Last Name</th>
-                <th>Email</th>
-                </tr>
-        { users.length>0 && users.map((user, index) => {
-            return(
-                    <tr onClick={(e) => viewUserClick(e, user.id)} >
-                    <td><img src={user.avatar} style={{width:'70px',borderRadius:'50%'}}/></td>
-                    <td>{user.first_name}</td>
-                    <td>{user.last_name}</td>
-                    <td>{user.email}</td>
-                    </tr>
+        <table>
+          <tr>
+            <th></th>
+            <th width="150px" align="left">First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+          </tr>
+          {newUsers.length > 0 && newUsers.map((user, index) => {
+            return (
+              <tr onClick={(e) => viewUserClick(e, user.id)} style={{ cursor: 'pointer' }}>
+                <td><img src={user.avatar} alt={user.first_name} style={{ width: '70px', borderRadius: '50%' }} /></td>
+                <td>{user.first_name}</td>
+                <td>{user.last_name}</td>
+                <td>{user.email}</td>
+              </tr>
             )
-        })
-    }
-    </table>
+          })
+          }
+        </table>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <UserDetails data={userData} />
