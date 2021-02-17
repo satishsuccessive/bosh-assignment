@@ -1,12 +1,13 @@
 import './App.css';
+import { BrowserRouter } from 'react-router-dom';
 import TabPanel from './module/TabPannel/TabPanel';
-import {Header} from './components';
-function App() {
+import Routes from './Routes';
+
+function App(props) {
   return (
-    <div className="App">
-      <Header/>
-      <TabPanel />
-    </div>
+    <BrowserRouter>
+      <Routes {...props} />
+   </BrowserRouter>
   );
 }
 
