@@ -23,7 +23,7 @@ export default function Header() {
     return (
         <Box display="flex" width="100%" justifyContent="space-between">
             <Typography style={{ padding: 10}}>
-                <Link href="#" onClick={preventDefault}>
+                <Link to={'/'} onClick={preventDefault}>
                     <img src={bosch} alt="My logo" width="150px" />
                 </Link>
             </Typography>
