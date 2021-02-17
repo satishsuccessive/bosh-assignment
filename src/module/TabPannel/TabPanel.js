@@ -31,7 +31,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -88,7 +88,7 @@ function SimpleTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-      <TableContainer component={Paper}>
+      <TableContainer>
         <Table>
           <TableHead>
           <TableRow>
