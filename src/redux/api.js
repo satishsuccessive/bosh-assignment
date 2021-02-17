@@ -20,7 +20,7 @@ export const getUsersList = () => (dispatch) => {
 
 export const updateUserById = (id, data) => (dispatch) => {
 	return updateUser(id, data).then((res) => {
-		console.log(res);
-		dispatch(editUser(res));
+		console.log(res.data);
+		dispatch(editUser(id, res.data));
 	});
 };
